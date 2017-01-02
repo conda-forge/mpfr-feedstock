@@ -14,10 +14,11 @@ source:
   md5: 9d84b0d1ac32244e837d1b220b0ceb73                                     # [win]
 
 build:
-  number: 3
+  number: 4
   features:
-    - vc14            # [win]
-  msvc_compiler: 14.0
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
+  skip: true  # [win and not (py34 or py35)]
 
 requirements:
   build:
@@ -25,12 +26,10 @@ requirements:
     - m4              # [unix]
     - libtool         # [unix]
     - gmp             # [unix]
-    - vc 14           # [win]
     - mpir            # [win]
   run:
     - gmp             # [unix]
     - mpir            # [win]
-    - vc 14           # [win]
 
 test:
   commands:
