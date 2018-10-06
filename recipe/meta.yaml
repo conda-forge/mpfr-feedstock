@@ -31,6 +31,8 @@ requirements:
     - mpir            # [win]
 
 test:
+  requires:
+    - {{ compiler('c') }}
   commands:
     - if not exist %LIBRARY_INC%\\mpfr.h exit 1                # [win]
     - if not exist %LIBRARY_LIB%\\mpfr.lib exit 1              # [win]
