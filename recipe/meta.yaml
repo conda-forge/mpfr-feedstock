@@ -23,6 +23,7 @@ requirements:
     - libtool         # [unix]
     - m4              # [unix]
     - make            # [unix]
+    - libtool  # [unix]
     - {{ compiler('c') }}
   host:
     - gmp             # [unix]
