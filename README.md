@@ -5,11 +5,9 @@ Home: http://www.mpfr.org/
 
 Package license: LGPL-3.0-only
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/mpfr-feedstock/blob/master/LICENSE.txt)
 
 Summary: The MPFR library is a C library for multiple-precision floating-point computations with correct rounding.
-
-
 
 Current build status
 ====================
