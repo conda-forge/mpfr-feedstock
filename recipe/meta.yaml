@@ -1,16 +1,15 @@
-{% set version = "4.1.0" %}
+{% set version = "4.1.1.rc1" %}
 
 package:
   name: mpfr
   version: {{ version }}
 
 source:
-  fn: mpfr-{{ version }}.tar.bz2
-  url: http://ftp.gnu.org/gnu/mpfr/mpfr-{{ version }}.tar.gz
-  sha256: 3127fe813218f3a1f0adf4e8899de23df33b4cf4b4b3831a5314f78e65ffa2d6
+  url: https://www.mpfr.org/mpfr-{{ ".".join(version.split(".")[:3]) }}/mpfr-{{ version.replace(".rc", "-rc") }}.tar.gz
+  sha256: ecb2045d9cab07290c02a5a70a37f0be822f679b3ba276628e2a6ba08cf97295
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win and vc<14]
   run_exports:
     - {{ pin_subpackage("mpfr") }}
