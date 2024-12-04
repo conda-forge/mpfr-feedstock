@@ -1,0 +1,45 @@
+--- src/mpfr.h	2024-12-03 23:49:30.362170602 -0800
++++ src/mpfr.h	2024-12-03 23:53:54.225206984 -0800
+@@ -474,7 +474,11 @@
+ __MPFR_DECLSPEC int mpfr_set_decimal64 (mpfr_ptr, _Decimal64, mpfr_rnd_t);
+ __MPFR_DECLSPEC int mpfr_set_decimal128 (mpfr_ptr, _Decimal128, mpfr_rnd_t);
+ #endif
++#ifdef _MSC_VER
++#define mpfr_set_ld mpfr_set_d
++#else
+ __MPFR_DECLSPEC int mpfr_set_ld (mpfr_ptr, long double, mpfr_rnd_t);
++#endif
+ #ifdef MPFR_WANT_FLOAT128
+ __MPFR_DECLSPEC int mpfr_set_float128 (mpfr_ptr, _Float128, mpfr_rnd_t);
+ __MPFR_DECLSPEC _Float128 mpfr_get_float128 (mpfr_srcptr, mpfr_rnd_t);
+@@ -526,10 +530,18 @@
+ __MPFR_DECLSPEC _Decimal64 mpfr_get_decimal64 (mpfr_srcptr, mpfr_rnd_t);
+ __MPFR_DECLSPEC _Decimal128 mpfr_get_decimal128 (mpfr_srcptr, mpfr_rnd_t);
+ #endif
++#ifdef _MSC_VER
++#define mpfr_get_ld mpfr_get_d
++#else
+ __MPFR_DECLSPEC long double mpfr_get_ld (mpfr_srcptr, mpfr_rnd_t);
++#endif
+ __MPFR_DECLSPEC double mpfr_get_d1 (mpfr_srcptr);
+ __MPFR_DECLSPEC double mpfr_get_d_2exp (long*, mpfr_srcptr, mpfr_rnd_t);
++#ifdef _MSC_VER
++#define mpfr_get_ld_2exp mpfr_get_d_2exp
++#else
+ __MPFR_DECLSPEC long double mpfr_get_ld_2exp (long*, mpfr_srcptr, mpfr_rnd_t);
++#endif
+ __MPFR_DECLSPEC int mpfr_frexp (mpfr_exp_t*, mpfr_ptr, mpfr_srcptr, mpfr_rnd_t);
+ __MPFR_DECLSPEC long mpfr_get_si (mpfr_srcptr, mpfr_rnd_t);
+ __MPFR_DECLSPEC unsigned long mpfr_get_ui (mpfr_srcptr, mpfr_rnd_t);
+@@ -638,7 +650,11 @@
+ __MPFR_DECLSPEC int mpfr_cmp  (mpfr_srcptr, mpfr_srcptr);
+ __MPFR_DECLSPEC int mpfr_cmp3 (mpfr_srcptr, mpfr_srcptr, int);
+ __MPFR_DECLSPEC int mpfr_cmp_d (mpfr_srcptr, double);
++#ifdef _MSC_VER
++#define mpfr_cmp_ld mpfr_cmp_d
++#else
+ __MPFR_DECLSPEC int mpfr_cmp_ld (mpfr_srcptr, long double);
++#endif
+ __MPFR_DECLSPEC int mpfr_cmp_ui (mpfr_srcptr, unsigned long);
+ __MPFR_DECLSPEC int mpfr_cmp_si (mpfr_srcptr, long);
+ __MPFR_DECLSPEC int mpfr_cmp_ui_2exp (mpfr_srcptr, unsigned long, mpfr_exp_t);
