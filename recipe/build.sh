@@ -3,7 +3,7 @@
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* . || true
 
-if [[ "$target_platform" == "win-64" ]]; then
+if [[ "$target_platform" == win\-* ]]; then
   export PREFIX=${PREFIX}/Library
 fi
 
@@ -18,6 +18,6 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" != 1 && "${CROSSCOMPILING_EMULATOR}" == "
 fi
 make install
 
-if [[ "$target_platform" == "win-64" ]]; then
+if [[ "$target_platform" == win\-* ]]; then
   cp ${PREFIX}/lib/libmpfr.dll.a ${PREFIX}/lib/mpfr.lib
 fi

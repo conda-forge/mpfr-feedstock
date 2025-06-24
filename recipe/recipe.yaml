@@ -1,0 +1,75 @@
+context:
+  version: "4.2.1"
+  posix: ${{ "m2-" if (build_platform | split("-"))[0] == "win" else "" }}
+
+package:
+  name: mpfr
+  version: ${{ version }}
+
+source:
+  url: http://ftp.gnu.org/gnu/mpfr/mpfr-${{ version }}.tar.gz
+  sha256: 116715552bd966c85b417c424db1bbdf639f53836eb361549d1f8d6ded5cb4c6
+
+build:
+  number: 4
+  
+requirements:
+  build:
+    - gnuconfig
+    - ${{ posix }}make
+    - if: win
+      then:
+        - ${{ posix }}base
+        - ${{ posix }}diffutils
+      else:
+        - libtool
+        - m4
+    - ${{ compiler('c') }}
+    - ${{ stdlib('c') }}
+    - if: build_platform != target_platform
+      then:
+        - gmp
+  host:
+    - gmp
+  run_exports:
+    - ${{ pin_subpackage("mpfr") }}
+
+tests:
+  - if: unix
+    then:
+      - script:
+          - ${CC} -L$PREFIX/lib -I$PREFIX/include -lmpfr -lgmp -Wl,-rpath,$PREFIX/lib test.c -o test.o
+          - ./test.o
+        files:
+          recipe:
+            - test.c
+        requirements:
+          run:
+            - ${{ compiler('c') }}
+            - ${{ stdlib('c') }}
+
+  - if: unix
+    then:
+      - package_contents:
+          lib:
+            - mpfr
+    else:
+      - package_contents:
+          include:
+            - mpfr.h
+          lib:
+            - mpfr.lib
+          bin:
+            - libmpfr-6.dll
+
+about:
+  homepage: http://www.mpfr.org/
+  license: LGPL-3.0-only
+  license_file: COPYING.LESSER
+  summary: The MPFR library is a C library for multiple-precision floating-point computations with correct rounding.
+
+extra:
+  recipe-maintainers:
+    - isuruf
+    - jakirkham
+    - marcelotrevisani
